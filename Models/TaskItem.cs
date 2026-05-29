@@ -9,20 +9,15 @@ public class TaskItem
     
     [Required]
     [MaxLength(100)]
-    public string Title { get; set; }
+    public string Title { get; set; } = String.Empty;
     
     public string? Description { get; set; }
     
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     
     public DateTime DueDate { get; set; }
-    
-    public enum PriorityLevel
-    {
-        Low,
-        Normal,
-        High
-    }
+
+    public Priority Priority { get; set; } = Priority.Normalan;
     
     public bool IsCompleted { get; set; }
     
