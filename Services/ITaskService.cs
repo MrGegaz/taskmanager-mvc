@@ -6,7 +6,7 @@ public interface ITaskService
 {
     Task<IEnumerable<TaskItem>> GetAllAsync();
     Task<TaskItem?> GetByIdAsync(int id);
-    Task<IEnumerable<TaskItem>> GetPendingAync();
+    Task<IEnumerable<TaskItem>> GetPendingAsync();
     Task<IEnumerable<TaskItem>> SearchByTitleAsync(string query);
     Task AddAsync(TaskItem task);
     Task UpdateAsync(TaskItem task);
