@@ -1,11 +1,12 @@
-﻿using taskmanager_mvc.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using taskmanager_mvc.Data;
 using taskmanager_mvc.Models;
 
 namespace taskmanager_mvc.Services;
 
 public class TaskService : ITaskService
 {
-    protected readonly AppDbContext _context;
+    private readonly AppDbContext _context;
 
     public TaskService(AppDbContext context)
     {
@@ -14,36 +15,52 @@ public class TaskService : ITaskService
 
     public async Task<IEnumerable<TaskItem>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Tasks
+            .Include(t => t.Project)
+            .ToListAsync();
     }
 
     public async Task<TaskItem?> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _context.Tasks
+            .Include(t => t.Project)
+            .FirstOrDefaultAsync(t => t.Id == id);
     }
 
-    public async Task<IEnumerable<TaskItem>> GetPendingAync()
+    public async Task<IEnumerable<TaskItem>> GetPendingAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Tasks
+            .Include(t => t.Project)
+            .Where(t => !t.IsCompleted)
+            .ToListAsync();
     }
 
     public async Task<IEnumerable<TaskItem>> SearchByTitleAsync(string query)
     {
-        throw new NotImplementedException();
+        return await _context.Tasks
+            .Include(t => t.Project)
+            .Where(t => t.Title.Contains(query))
+            .ToListAsync();
     }
 
     public async Task AddAsync(TaskItem task)
     {
-        throw new NotImplementedException();
+        _context.Tasks.Add(task);
+        await _context.SaveChangesAsync();
     }
 
     public async Task UpdateAsync(TaskItem task)
     {
-        throw new NotImplementedException();
+        _context.Tasks.Update(task);
+        await _context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        var task = await _context.Tasks.FindAsync(id);
+        if (task == null) return;
+        
+        _context.Tasks.Remove(task);
+        await _context.SaveChangesAsync();
     }
 }

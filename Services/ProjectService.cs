@@ -1,4 +1,5 @@
-﻿using taskmanager_mvc.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using taskmanager_mvc.Data;
 using taskmanager_mvc.Models;
 
 namespace taskmanager_mvc.Services;
@@ -14,26 +15,46 @@ public class ProjectService : IProjectService
     
     public async Task<IEnumerable<Project>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Projects
+            .Include(p => p.Tasks)
+            .ToListAsync();
     }
 
     public async Task<Project?> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _context.Projects
+            .Include(p => p.Tasks)
+            .FirstOrDefaultAsync(p => p.Id == id);
     }
 
     public async Task<Project?> CreateAsync(Project project)
     {
-        throw new NotImplementedException();
+        _context.Projects.Add(project);
+        await _context.SaveChangesAsync();
+        return project;
     }
 
     public async Task<Project?> UpdateAsync(Project project)
     {
-        throw new NotImplementedException();
+        var existingProject = await _context.Projects.FindAsync(project.Id);
+        if (existingProject == null) return null;
+
+        existingProject.Name = project.Name;
+        existingProject.Description = project.Description;
+        existingProject.EndDate = project.EndDate;
+        existingProject.IsActive = project.IsActive;
+
+        await _context.SaveChangesAsync();
+        return existingProject;
     }
 
     public async Task<Project> DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        var project = await _context.Projects.FindAsync(id);
+        if (project == null) throw new Exception("Projekt nije pronađen");
+
+        _context.Projects.Remove(project);
+        await _context.SaveChangesAsync();
+        return project;
     }
 }
