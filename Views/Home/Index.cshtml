@@ -1,8 +1,30 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Početna";
 }
 
-<div class="text-center">
-    <h1 class="text-red-600">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mt-5">
+    <h1>Task Manager</h1>
+    <p class="text-muted">Aplikacija za upravljanje projektima i zadacima</p>
+    <hr/>
+</div>
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Projekti</h5>
+                <p class="card-text text-muted">Pregled i upravljanje projektima</p>
+                <a asp-controller="Projects" asp-action="Index" class="btn btn-primary">Idi na projekte</a>
+            </div>
+        </div>
+    </div>
+    @*<div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Taskovi</h5>
+                <p class="card-text text-muted">Pregled i upravljanje zadacima</p>
+                <a asp-controller="Tasks" asp-action="Index" class="btn btn-primary">Idi na taskove</a>
+            </div>
+        </div>
+    </div>*@
 </div>
