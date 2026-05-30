@@ -9,7 +9,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <UpToDateCheckBuilt Include="wwwroot/css/site.css" Set="Css" /> <!-- Tailwind related-->
       <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9">
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -22,13 +21,10 @@
       <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Views\Tasks\" />
+    </ItemGroup>
     
-    <!-- Tailwind related-->
-    <Target Name="Tailwind" BeforeTargets="Build;PrepareForPublish">
-        <Exec Command="npx @tailwindcss/cli -i ./wwwroot/css/site.css -o ./wwwroot/css/output.css --minify" />
-        <ItemGroup>
-            <Content Include="wwwroot/css/output.css" CopyToPublishDirectory="Always" />
-        </ItemGroup>
-    </Target>
 
 </Project>
