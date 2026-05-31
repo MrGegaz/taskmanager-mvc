@@ -1,0 +1,27 @@
+@model taskmanager_mvc.Models.Project
+
+@{
+    ViewData["Title"] = "Obriši projekt";
+}
+
+<h2>Obriši projekt</h2>
+<hr/>
+
+<p class="text-danger">Jesi li siguran da želiš obrisati ovaj projekt?</p>
+
+<dl class="row">
+    <dt class="col-sm-3">Naziv</dt>
+    <dd class="col-sm-9">@Model.Name</dd>
+
+    <dt class="col-sm-3">Opis</dt>
+    <dd class="col-sm-9">@(Model.Description ?? "-")</dd>
+
+    <dt class="col-sm-3">Datum početka</dt>
+    <dd class="col-sm-9">@Model.StartDate.ToString("dd.MM.yyyy")</dd>
+</dl>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id"/>
+    <button type="submit" class="btn btn-danger">Da, obriši</button>
+    <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+</form>
