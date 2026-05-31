@@ -1,0 +1,51 @@
+@model IEnumerable<taskmanager_mvc.Models.Project>
+
+@{
+    ViewData["Title"] = "Projekti";
+}
+
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <h2 class="mb-0">Projekti</h2>
+    <a asp-action="Create" class="btn btn-primary">Novi projekt</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Naziv</th>
+                <th>Opis</th>
+                <th>Datum početka</th>
+                <th>Datum završetka</th>
+                <th>Aktivan</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var project in Model)
+        {
+            <tr>
+                <td>@project.Name</td>
+                <td>@project.Description</td>
+                <td>@project.StartDate.ToString("dd.MM.yyyy")</td>
+                <td>@project.EndDate.ToString("dd.MM.yyyy")</td>
+                <td>
+                    @if (project.IsActive)
+                    {
+                        <span class="badge bg-success">Da</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Ne</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@project.Id" class="btn btn-sm btn-outline-primary">Detalji</a>
+                    <a asp-action="Edit" asp-route-id="@project.Id" class="btn btn-sm btn-outline-secondary">Uredi</a>
+                    <a asp-action="Delete" asp-route-id="@project.Id" class="btn btn-sm btn-outline-danger">Obriši</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
