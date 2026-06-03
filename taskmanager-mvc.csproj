@@ -21,10 +21,6 @@
       <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Views\Tasks\" />
-    </ItemGroup>
     
 
 </Project>
