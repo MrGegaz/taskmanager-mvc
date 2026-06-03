@@ -27,6 +27,13 @@ public class ProjectService : IProjectService
             .FirstOrDefaultAsync(p => p.Id == id);
     }
 
+    public async Task<Project?> GetActiveAsync(bool isActive)
+    {
+        return await _context.Projects
+            .Include(p => p.Tasks)
+            .FirstOrDefaultAsync(p => p.IsActive == isActive);
+    }
+
     public async Task<Project?> CreateAsync(Project project)
     {
         _context.Projects.Add(project);

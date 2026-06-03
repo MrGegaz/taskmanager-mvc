@@ -20,10 +20,18 @@ public class ProjectsController : Controller
         return View(projects);
     }
 
-    // GET: Projects/Details/5
+    // GET: Projects/Details/x
     public async Task<IActionResult> Details(int id)
     {
         var project = await _projectService.GetByIdAsync(id);
+        if (project == null) return NotFound();
+        return View(project);
+    }
+    
+    // GET: Projects/Active/x
+    public async Task<IActionResult> Active(bool isActive)
+    {
+        var project = await _projectService.GetActiveAsync(isActive);
         if (project == null) return NotFound();
         return View(project);
     }
@@ -44,7 +52,7 @@ public class ProjectsController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    // GET: Projects/Edit/5
+    // GET: Projects/Edit/x
     public async Task<IActionResult> Edit(int id)
     {
         var project = await _projectService.GetByIdAsync(id);
@@ -52,7 +60,7 @@ public class ProjectsController : Controller
         return View(project);
     }
 
-    // POST: Projects/Edit/5
+    // POST: Projects/Edit/x
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(Project project)
@@ -63,7 +71,7 @@ public class ProjectsController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    // GET: Projects/Delete/5
+    // GET: Projects/Delete/x
     public async Task<IActionResult> Delete(int id)
     {
         var project = await _projectService.GetByIdAsync(id);
@@ -71,7 +79,7 @@ public class ProjectsController : Controller
         return View(project);
     }
 
-    // POST: Projects/Delete/5
+    // POST: Projects/Delete/x
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
