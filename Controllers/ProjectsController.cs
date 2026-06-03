@@ -28,12 +28,11 @@ public class ProjectsController : Controller
         return View(project);
     }
     
-    // GET: Projects/Active/x
-    public async Task<IActionResult> Active(bool isActive)
+    // GET: Projects/Active
+    public async Task<IActionResult> Active()
     {
-        var project = await _projectService.GetActiveAsync(isActive);
-        if (project == null) return NotFound();
-        return View(project);
+        var projects = await _projectService.GetActiveAsync();
+        return View(projects);
     }
 
     // GET: Projects/Create

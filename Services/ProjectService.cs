@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using taskmanager_mvc.Data;
 using taskmanager_mvc.Models;
 
@@ -27,11 +27,12 @@ public class ProjectService : IProjectService
             .FirstOrDefaultAsync(p => p.Id == id);
     }
 
-    public async Task<Project?> GetActiveAsync(bool isActive)
+    public async Task<IEnumerable<Project>> GetActiveAsync()
     {
         return await _context.Projects
             .Include(p => p.Tasks)
-            .FirstOrDefaultAsync(p => p.IsActive == isActive);
+            .Where(p => p.IsActive)
+            .ToListAsync();
     }
 
     public async Task<Project?> CreateAsync(Project project)

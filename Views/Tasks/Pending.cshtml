@@ -2,16 +2,12 @@
 @using taskmanager_mvc.Models
 
 @{
-    ViewData["Title"] = "Zadaci";
+    ViewData["Title"] = "Nezavršeni zadaci";
 }
 
 <div class="d-flex align-items-center justify-content-between mb-4">
-    <h2 class="mb-0">Zadaci</h2>
-    <div>
-        <a asp-action="Pending" class="btn btn-outline-secondary me-2">Nezavršeni</a>
-        <a asp-action="Search" class="btn btn-outline-secondary me-2">Pretraži</a>
-        <a asp-action="Create" class="btn btn-primary">Novi zadatak</a>
-    </div>
+    <h2 class="mb-0">Nezavršeni zadaci</h2>
+    <a asp-action="Index" class="btn btn-outline-secondary">Svi zadaci</a>
 </div>
 
 <div class="table-responsive">
@@ -22,7 +18,6 @@
                 <th>Projekt</th>
                 <th>Prioritet</th>
                 <th>Rok</th>
-                <th>Status</th>
                 <th></th>
             </tr>
         </thead>
@@ -48,19 +43,7 @@
                 </td>
                 <td>@task.DueDate.ToString("dd.MM.yyyy")</td>
                 <td>
-                    @if (task.IsCompleted)
-                    {
-                        <span class="badge bg-success">Završeno</span>
-                    }
-                    else
-                    {
-                        <span class="badge bg-secondary">U tijeku</span>
-                    }
-                </td>
-                <td>
                     <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-sm btn-outline-primary">Detalji</a>
-                    <a asp-action="Edit" asp-route-id="@task.Id" class="btn btn-sm btn-outline-secondary">Uredi</a>
-                    <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-sm btn-outline-danger">Obriši</a>
                 </td>
             </tr>
         }
