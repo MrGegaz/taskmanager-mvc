@@ -1,0 +1,59 @@
+@model taskmanager_mvc.Models.TaskItem
+@using taskmanager_mvc.Models
+
+@{
+    ViewData["Title"] = "Detalji zadatka";
+}
+
+<h2>@Model.Title</h2>
+<hr/>
+
+<dl class="row">
+    <dt class="col-sm-3">Projekt</dt>
+    <dd class="col-sm-9">@(Model.Project?.Name ?? "-")</dd>
+
+    <dt class="col-sm-3">Opis</dt>
+    <dd class="col-sm-9">@(Model.Description ?? "-")</dd>
+
+    <dt class="col-sm-3">Prioritet</dt>
+    <dd class="col-sm-9">
+        @switch (Model.Priority)
+        {
+            case Priority.Visok:
+                <span class="badge bg-danger">Visok</span>
+                break;
+            case Priority.Normalan:
+                <span class="badge bg-warning text-dark">Normalan</span>
+                break;
+            case Priority.Nizak:
+                <span class="badge bg-success">Nizak</span>
+                break;
+        }
+    </dd>
+
+    <dt class="col-sm-3">Rok izvršenja</dt>
+    <dd class="col-sm-9">@Model.DueDate.ToString("dd.MM.yyyy")</dd>
+
+    <dt class="col-sm-3">Kreirano</dt>
+    <dd class="col-sm-9">@Model.CreatedAt.ToString("dd.MM.yyyy")</dd>
+
+    <dt class="col-sm-3">Napomene</dt>
+    <dd class="col-sm-9">@(Model.Notes ?? "-")</dd>
+
+    <dt class="col-sm-3">Status</dt>
+    <dd class="col-sm-9">
+        @if (Model.IsCompleted)
+        {
+            <span class="badge bg-success">Završeno</span>
+        }
+        else
+        {
+            <span class="badge bg-secondary">U tijeku</span>
+        }
+    </dd>
+</dl>
+
+<div class="mt-4">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Uredi</a>
+    <a asp-action="Index" class="btn btn-outline-secondary">Povratak</a>
+</div>
