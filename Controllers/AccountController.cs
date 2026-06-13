@@ -21,13 +21,19 @@ public class AccountController : Controller
     public async Task<IActionResult> Login(AccountViewModels.LoginViewModel model)
     {
         if (!ModelState.IsValid) return View(model);
-        
-        var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
-        
-        if (result.Succeeded) {
-            return RedirectToAction("Index", "Home");
+
+        var user = await _userManager.FindByEmailAsync(model.Email);
+        if (user == null)
+        {
+            ModelState.AddModelError(string.Empty, "Neispravan email ili lozinka!");
+            return View(model);
         }
-        
+
+        var result = await _signInManager.PasswordSignInAsync(user.UserName!, model.Password, false, false);
+
+        if (result.Succeeded)
+            return RedirectToAction("Index", "Home");
+
         ModelState.AddModelError(string.Empty, "Neispravan email ili lozinka!");
         return View(model);
     }
