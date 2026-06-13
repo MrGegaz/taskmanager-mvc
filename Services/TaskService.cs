@@ -13,10 +13,11 @@ public class TaskService : ITaskService
         _context = context;
     }
 
-    public async Task<IEnumerable<TaskItem>> GetAllAsync()
+    public async Task<IEnumerable<TaskItem>> GetAllAsync(string userId)
     {
         return await _context.Tasks
             .Include(t => t.Project)
+            .Where(t => t.Project!.UserId == userId)
             .ToListAsync();
     }
 
@@ -27,19 +28,19 @@ public class TaskService : ITaskService
             .FirstOrDefaultAsync(t => t.Id == id);
     }
 
-    public async Task<IEnumerable<TaskItem>> GetPendingAsync()
+    public async Task<IEnumerable<TaskItem>> GetPendingAsync(string userId)
     {
         return await _context.Tasks
             .Include(t => t.Project)
-            .Where(t => !t.IsCompleted)
+            .Where(t => t.Project!.UserId == userId && !t.IsCompleted)
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<TaskItem>> SearchByTitleAsync(string query)
+    public async Task<IEnumerable<TaskItem>> SearchByTitleAsync(string query, string userId)
     {
         return await _context.Tasks
             .Include(t => t.Project)
-            .Where(t => t.Title.Contains(query))
+            .Where(t => t.Project!.UserId == userId && t.Title.Contains(query))
             .ToListAsync();
     }
 

@@ -4,9 +4,9 @@ namespace taskmanager_mvc.Services;
 
 public interface IProjectService
 {
-    Task<IEnumerable<Project>> GetAllAsync();
+    Task<IEnumerable<Project>> GetAllAsync(string userId);
     Task<Project?> GetByIdAsync(int id);
-    Task<IEnumerable<Project>> GetActiveAsync();
+    Task<IEnumerable<Project>> GetActiveAsync(string userId);
     Task<Project?> CreateAsync(Project project);
     Task<Project?> UpdateAsync(Project project);
     Task<Project> DeleteAsync(int id);

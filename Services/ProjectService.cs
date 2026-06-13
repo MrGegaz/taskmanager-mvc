@@ -13,10 +13,11 @@ public class ProjectService : IProjectService
         _context = context;
     }
     
-    public async Task<IEnumerable<Project>> GetAllAsync()
+    public async Task<IEnumerable<Project>> GetAllAsync(string userId)
     {
         return await _context.Projects
             .Include(p => p.Tasks)
+            .Where(p => p.UserId == userId)
             .ToListAsync();
     }
 
@@ -27,11 +28,11 @@ public class ProjectService : IProjectService
             .FirstOrDefaultAsync(p => p.Id == id);
     }
 
-    public async Task<IEnumerable<Project>> GetActiveAsync()
+    public async Task<IEnumerable<Project>> GetActiveAsync(string userId)
     {
         return await _context.Projects
             .Include(p => p.Tasks)
-            .Where(p => p.IsActive)
+            .Where(p => p.IsActive && p.UserId == userId)
             .ToListAsync();
     }
 

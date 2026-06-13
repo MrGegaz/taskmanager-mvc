@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using taskmanager_mvc.Models;
@@ -11,17 +12,20 @@ public class TasksController : Controller
 {
     private readonly ITaskService _taskService;
     private readonly IProjectService _projectService;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public TasksController(ITaskService taskService, IProjectService projectService)
+    public TasksController(ITaskService taskService, IProjectService projectService, UserManager<ApplicationUser> userManager)
     {
         _taskService = taskService;
         _projectService = projectService;
+        _userManager = userManager;
     }
 
     // GET: Tasks
     public async Task<IActionResult> Index()
     {
-        var tasks = await _taskService.GetAllAsync();
+        var userId = _userManager.GetUserId(User);
+        var tasks = await _taskService.GetAllAsync(userId!);
         return View(tasks);
     }
 
@@ -36,7 +40,8 @@ public class TasksController : Controller
     // GET: Tasks/Pending
     public async Task<IActionResult> Pending()
     {
-        var tasks = await _taskService.GetPendingAsync();
+        var userId = _userManager.GetUserId(User)!;
+        var tasks = await _taskService.GetPendingAsync(userId);
         return View(tasks);
     }
 
@@ -46,7 +51,8 @@ public class TasksController : Controller
         if (string.IsNullOrWhiteSpace(query))
             return View(Enumerable.Empty<TaskItem>());
 
-        var tasks = await _taskService.SearchByTitleAsync(query);
+        var userId = _userManager.GetUserId(User)!;
+        var tasks = await _taskService.SearchByTitleAsync(query, userId);
         return View(tasks);
     }
 
@@ -113,7 +119,8 @@ public class TasksController : Controller
 
     private async Task PopulateProjectsDropdown(int? selectedId = null)
     {
-        var projects = await _projectService.GetAllAsync();
+        var userId = _userManager.GetUserId(User)!;
+        var projects = await _projectService.GetAllAsync(userId);
         ViewBag.ProjectId = new SelectList(projects, "Id", "Name", selectedId);
     }
 }

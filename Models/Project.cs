@@ -5,6 +5,10 @@ namespace taskmanager_mvc.Models;
 public class Project
 {
     public int Id { get; set; }
+    
+    public string? UserId { get; set; }
+    
+    public ApplicationUser? User { get; set; }
 
     [Required] [MaxLength(100)] public string Name { get; set; } = String.Empty;
     

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using taskmanager_mvc.Models;
 using taskmanager_mvc.Services;
@@ -9,16 +10,19 @@ namespace taskmanager_mvc.Controllers;
 public class ProjectsController : Controller
 {
     private readonly IProjectService _projectService;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public ProjectsController(IProjectService projectService)
+    public ProjectsController(IProjectService projectService, UserManager<ApplicationUser> userManager)
     {
         _projectService = projectService;
+        _userManager = userManager;
     }
 
     // GET: Projects
     public async Task<IActionResult> Index()
     {
-        var projects = await _projectService.GetAllAsync();
+        var userId = _userManager.GetUserId(User);
+        var projects = await _projectService.GetAllAsync(userId!);
         return View(projects);
     }
 
@@ -33,7 +37,8 @@ public class ProjectsController : Controller
     // GET: Projects/Active
     public async Task<IActionResult> Active()
     {
-        var projects = await _projectService.GetActiveAsync();
+        var userId = _userManager.GetUserId(User);
+        var projects = await _projectService.GetActiveAsync(userId!);
         return View(projects);
     }
 
@@ -49,6 +54,7 @@ public class ProjectsController : Controller
     public async Task<IActionResult> Create(Project project)
     {
         if (!ModelState.IsValid) return View(project);
+        project.UserId = _userManager.GetUserId(User);
         await _projectService.CreateAsync(project);
         return RedirectToAction(nameof(Index));
     }
