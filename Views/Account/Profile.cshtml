@@ -1,0 +1,39 @@
+﻿@model taskmanager_mvc.ViewModels.AccountViewModels.ProfileViewModel
+
+@{
+    ViewData["Title"] = "Moj profil";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="text-center mb-4">@ViewData["Title"]</h2>
+
+                <form asp-action="Profile" method="post">
+                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+                    
+                    <div class="mb-3 text-center">
+                        <img src="https://placehold.co/100?font=roboto" alt="Profile Picture" class="rounded-circle" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Username" class="form-label"></label>
+                        <input asp-for="Username" class="form-control" />
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-grid gap-2 mb-3">
+                    <button type="submit" class="btn btn-primary">Spremi promjene</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

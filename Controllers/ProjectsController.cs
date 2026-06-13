@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using taskmanager_mvc.Models;
 using taskmanager_mvc.Services;
 
 namespace taskmanager_mvc.Controllers;
 
+[Authorize]
 public class ProjectsController : Controller
 {
     private readonly IProjectService _projectService;

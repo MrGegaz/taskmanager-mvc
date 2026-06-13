@@ -1,0 +1,28 @@
+﻿@model taskmanager_mvc.ViewModels.AccountViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Prijava";
+}
+
+<form asp-action="Login" method="post">
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control"></input>
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Password" class="form-label"></label>
+        <input asp-for="Password" class="form-control"></input>
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="d-grid gap-2 mb-3">
+        <button type="submit" class="btn btn-primary">Prijavi se</button>
+    </div>
+
+    <div class="text-center">
+        <p class="mb-0">Nemate račun? <a asp-action="Register">Registrirajte se</a></p>
+    </div>
+</form>

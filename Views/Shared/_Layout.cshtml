@@ -17,17 +17,36 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Home" asp-action="Index">Naslovna</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Projects" asp-action="Index">Projekti</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Tasks" asp-action="Index">Zadaci</a>
-                </li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">Naslovna</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Projects" asp-action="Index">Projekti</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Tasks" asp-action="Index">Zadaci</a>
+                    </li>
+                } else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">Naslovna</a>
+                    </li>
+                }
             </ul>
-            <button class="btn btn-primary disabled mx-sm-auto mx-lg-5" type="submit">Prijava</button>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <span class="navbar-text me-3">Pozdrav @User.Identity.Name</span>
+                <a asp-controller="Account" asp-action="Profile" class="btn btn-outline-primary me-2">Profil</a>
+                <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-outline-secondary">Odjava</button>
+                </form>
+            }
+            else
+            {
+                <a asp-controller="Account" asp-action="Login" class="btn btn-primary mx-sm-auto mx-lg-5">Prijava</a>
+            }
         </div>
     </div>
 </nav>

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using taskmanager_mvc.Models;
@@ -5,6 +6,7 @@ using taskmanager_mvc.Services;
 
 namespace taskmanager_mvc.Controllers;
 
+[Authorize]
 public class TasksController : Controller
 {
     private readonly ITaskService _taskService;
