@@ -37,10 +37,10 @@
             </ul>
             @if (User.Identity.IsAuthenticated)
             {
-                <span class="navbar-text me-3">Pozdrav @User.Identity.Name</span>
-                <a asp-controller="Account" asp-action="Profile" class="btn btn-outline-primary me-2">Profil</a>
+                <span class="navbar-text me-3">Pozdrav <b>@User.Identity.Name</b></span>
+                <a asp-controller="Account" asp-action="Profile" class="btn btn-outline-secondary me-2">Profil</a>
                 <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
-                    <button type="submit" class="btn btn-outline-secondary">Odjava</button>
+                    <button type="submit" class="btn btn-outline-danger">Odjava</button>
                 </form>
             }
             else
