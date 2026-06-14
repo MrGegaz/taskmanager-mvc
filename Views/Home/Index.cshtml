@@ -4,27 +4,38 @@
 
 <div class="text-center mt-5">
     <h1>Task Manager</h1>
-    <p class="text-muted">Aplikacija za upravljanje projektima i zadacima</p>
+    <p class="text-muted">Upravljatje svojim projektima i zadacima na jednom mjestu</p>
     <hr/>
 </div>
 
-<div class="row justify-content-center mt-4">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body text-center">
-                <h5 class="card-title">Projekti</h5>
-                <p class="card-text text-muted">Pregled i upravljanje projektima</p>
-                <a asp-controller="Projects" asp-action="Index" class="btn btn-primary">Idi na projekte</a>
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Projekti</h5>
+                    <p class="card-text text-muted">Pregled i upravljanje projektima</p>
+                    <a asp-controller="Projects" asp-action="Index" class="btn btn-primary">Svi projekti</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Taskovi</h5>
+                    <p class="card-text text-muted">Pregled i upravljanje zadacima</p>
+                    <a asp-controller="Tasks" asp-action="Index" class="btn btn-primary">Svi zadaci</a>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body text-center">
-                <h5 class="card-title">Taskovi</h5>
-                <p class="card-text text-muted">Pregled i upravljanje zadacima</p>
-                <a asp-controller="Tasks" asp-action="Index" class="btn btn-primary">Idi na taskove</a>
-            </div>
-        </div>
+}
+else
+{
+    <div class="text-center mt-4">
+        <p class="lead">Za pristup projektima i zadacima potrebna je prijava.</p>
+        <a asp-controller="Account" asp-action="Login" class="btn btn-primary me-2">Prijava</a>
+        <a asp-controller="Account" asp-action="Register" class="btn btn-outline-secondary">Registracija</a>
     </div>
-</div>
+}
