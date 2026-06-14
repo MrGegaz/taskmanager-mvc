@@ -45,17 +45,6 @@ public class TasksController : Controller
         return View(tasks);
     }
 
-    // GET: Tasks/Search?query=xxx
-    public async Task<IActionResult> Search(string query)
-    {
-        if (string.IsNullOrWhiteSpace(query))
-            return View(Enumerable.Empty<TaskItem>());
-
-        var userId = _userManager.GetUserId(User)!;
-        var tasks = await _taskService.SearchByTitleAsync(query, userId);
-        return View(tasks);
-    }
-
     // GET: Tasks/Create
     public async Task<IActionResult> Create()
     {

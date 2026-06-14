@@ -36,14 +36,6 @@ public class TaskService : ITaskService
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<TaskItem>> SearchByTitleAsync(string query, string userId)
-    {
-        return await _context.Tasks
-            .Include(t => t.Project)
-            .Where(t => t.Project!.UserId == userId && t.Title.Contains(query))
-            .ToListAsync();
-    }
-
     public async Task AddAsync(TaskItem task)
     {
         _context.Tasks.Add(task);
