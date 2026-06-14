@@ -1,30 +1,35 @@
 @model IEnumerable<taskmanager_mvc.Models.TaskItem>
-@using taskmanager_mvc.Models
 
 @{
     ViewData["Title"] = "Zadaci";
 }
 
 <div class="d-flex align-items-center justify-content-between mb-4">
-    <h2 class="mb-0">Zadaci</h2>
+    <div class="d-flex align-items-center gap-3">
+        <h2 class="mb-0">Zadaci</h2>
+        <input type="text"
+               id="taskSearchInput"
+               class="form-control"
+               placeholder="Pretraživanje po nazivu..." />
+    </div>
     <div>
         <a asp-action="Pending" class="btn btn-outline-secondary me-2">Nezavršeni</a>
         <a asp-action="Search" class="btn btn-outline-secondary me-2">Pretraži</a>
-        <a asp-action="Create" class="btn btn-primary">Novi zadatak</a>
+        <a asp-action="Create" class="btn btn-success">Novi zadatak</a>
     </div>
 </div>
 
 <div class="table-responsive">
     <table class="table table-striped table-hover">
         <thead class="table-dark">
-            <tr>
-                <th>Naslov</th>
-                <th>Projekt</th>
-                <th>Prioritet</th>
-                <th>Rok</th>
-                <th>Status</th>
-                <th></th>
-            </tr>
+        <tr>
+            <th>Naslov</th>
+            <th>Projekt</th>
+            <th>Prioritet</th>
+            <th>Rok</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
         @foreach (var task in Model)
@@ -56,3 +61,12 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    document.getElementById('taskSearchInput').addEventListener('input', function () {
+        const q = this.value.toLowerCase();
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+        });
+    });
+</script>

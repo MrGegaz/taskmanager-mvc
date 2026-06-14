@@ -5,7 +5,13 @@
 }
 
 <div class="d-flex align-items-center justify-content-between mb-4">
-    <h2 class="mb-0">Projekti</h2>
+    <div class="d-flex align-items-center gap-3">
+        <h2 class="mb-0">Projekti</h2>
+        <input type="text"
+               id="taskSearchInput"
+               class="form-control"
+               placeholder="Pretraživanje po nazivu..." />
+    </div>
     <div>
         <a asp-action="Active" class="btn btn-outline-secondary me-2">Aktivni projekti</a>
         <a asp-action="Create" class="btn btn-primary">Novi projekt</a>
@@ -15,14 +21,14 @@
 <div class="table-responsive">
     <table class="table table-striped table-hover">
         <thead class="table-dark">
-            <tr>
-                <th>Naziv</th>
-                <th>Opis</th>
-                <th>Datum početka</th>
-                <th>Datum završetka</th>
-                <th>Aktivan</th>
-                <th></th>
-            </tr>
+        <tr>
+            <th>Naziv</th>
+            <th>Opis</th>
+            <th>Datum početka</th>
+            <th>Datum završetka</th>
+            <th>Aktivan</th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
         @foreach (var project in Model)
@@ -52,3 +58,12 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    document.getElementById('taskSearchInput').addEventListener('input', function () {
+        const q = this.value.toLowerCase();
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+        });
+    });
+</script>
