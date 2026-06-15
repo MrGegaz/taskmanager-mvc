@@ -8,7 +8,7 @@
     <div class="d-flex align-items-center gap-3">
         <h2 class="mb-0">Projekti</h2>
         <input type="text"
-               id="taskSearchInput"
+               id="projectSearchInput"
                class="form-control"
                placeholder="Pretraživanje po nazivu..." />
     </div>
@@ -60,7 +60,7 @@
 </div>
 
 <script>
-    document.getElementById('taskSearchInput').addEventListener('input', function () {
+    document.getElementById('projectSearchInput').addEventListener('input', function () {
         const q = this.value.toLowerCase();
         document.querySelectorAll('tbody tr').forEach(row => {
             row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';

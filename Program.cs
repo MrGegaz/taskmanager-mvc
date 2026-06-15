@@ -4,6 +4,8 @@ using taskmanager_mvc.Data;
 using taskmanager_mvc.Models;
 using taskmanager_mvc.Services;
 
+// PostgreSQL po defaultu zahtijeva UTC DateTime; ovaj switch dopusta
+// rad s lokalnim/unspecified DateTime vrijednostima bez bacanja iznimke.
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,7 +39,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();
+app.UseAuthentication(); // Redoslijed je bitan: Authentication mora biti prije Authorization
 
 app.UseAuthorization();
 

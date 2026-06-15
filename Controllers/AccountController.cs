@@ -22,6 +22,8 @@ public class AccountController : Controller
     {
         if (!ModelState.IsValid) return View(model);
 
+        // Korisnik se prijavljuje emailom, ali Identity SignIn radi sa UserName
+        // zato prvo dohvatiti korisnika po emailu pa proslijediti UserName
         var user = await _userManager.FindByEmailAsync(model.Email);
         if (user == null)
         {

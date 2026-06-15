@@ -13,6 +13,7 @@ public class TaskService : ITaskService
         _context = context;
     }
 
+    // Zadaci nemaju vlastiti UserId jer se određuje preko Project.UserId
     public async Task<IEnumerable<TaskItem>> GetAllAsync(string userId)
     {
         return await _context.Tasks
