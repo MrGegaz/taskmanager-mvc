@@ -42,7 +42,15 @@ public class AccountController : Controller
     
     // GET: Login form
     [HttpGet]
-    public IActionResult Login() => View();
+    public IActionResult Login()
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            return RedirectToAction("Index", "Home");
+        }
+        
+        return View();
+    }
     
     //P OST: Register
     [HttpPost]
@@ -70,7 +78,15 @@ public class AccountController : Controller
     
     // GET: Register form
     [HttpGet]
-    public IActionResult Register() => View();
+    public IActionResult Register()
+    {
+        if (User.Identity!.IsAuthenticated)
+        {
+            return RedirectToAction("Index", "Home");
+        }
+        
+        return View();
+    }
     
     // POST: Logout
     [HttpPost]
