@@ -28,7 +28,18 @@
                 <td>@task.Title</td>
                 <td>@task.Project?.Name</td>
                 <td>
-                    @Html.PriorityBadge(task.Priority)
+                    @switch (task.Priority)
+                    {
+                        case Priority.Visok:
+                            <span class="badge bg-danger">Visok</span>
+                            break;
+                        case Priority.Normalan:
+                            <span class="badge bg-warning text-dark">Normalan</span>
+                            break;
+                        case Priority.Nizak:
+                            <span class="badge bg-success">Nizak</span>
+                            break;
+                    }
                 </td>
                 <td>@task.DueDate.ToString("dd.MM.yyyy")</td>
                 <td>
