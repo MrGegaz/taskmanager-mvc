@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using taskmanager_mvc.Models;
-using taskmanager_mvc.ViewModels;
 
 namespace taskmanager_mvc.Controllers;
 
@@ -18,7 +17,7 @@ public class AccountController : Controller
     
     // POST: Login
     [HttpPost]
-    public async Task<IActionResult> Login(AccountViewModels.LoginViewModel model)
+    public async Task<IActionResult> Login(AccountViewModel.LoginViewModel model)
     {
         if (!ModelState.IsValid) return View(model);
 
@@ -54,7 +53,7 @@ public class AccountController : Controller
     
     //P OST: Register
     [HttpPost]
-    public async Task<IActionResult> Register(AccountViewModels.RegisterViewModel model)
+    public async Task<IActionResult> Register(AccountViewModel.RegisterViewModel model)
     {
         if (!ModelState.IsValid) return View(model);
         
@@ -98,7 +97,7 @@ public class AccountController : Controller
     
     // UPDATE: Profile form
     [HttpPost]
-    public async Task<IActionResult> Profile(AccountViewModels.ProfileViewModel model)
+    public async Task<IActionResult> Profile(AccountViewModel.ProfileViewModel model)
     {
         if (!ModelState.IsValid) return View(model);
         
@@ -130,7 +129,7 @@ public class AccountController : Controller
         var user = await _userManager.GetUserAsync(User);
         if (user == null) return NotFound();
         
-        var model = new AccountViewModels.ProfileViewModel
+        var model = new AccountViewModel.ProfileViewModel
         {
             Username = user.UserName ?? string.Empty,
             Email = user.Email ?? string.Empty,

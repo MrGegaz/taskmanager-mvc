@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace taskmanager_mvc.ViewModels;
+namespace taskmanager_mvc.Models;
 
-public class AccountViewModels
+public class AccountViewModel
 {
     public class LoginViewModel
     {
