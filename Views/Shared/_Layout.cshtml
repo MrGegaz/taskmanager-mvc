@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
@@ -17,7 +17,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                @if (User.Identity.IsAuthenticated)
+                @if (User.Identity!.IsAuthenticated)
                 {
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Home" asp-action="Index">Naslovna</a>
@@ -51,14 +51,14 @@
     </div>
 </nav>
 
-<div class="container mt-4">
+<div class="container mt-4 flex-grow-1">
     <main role="main">
         @RenderBody()
     </main>
 </div>
 
 <footer class="border-top mt-5 py-3 text-center text-muted">
-    <small>&copy; 2026 Task Manager</small>
+    <small>&COPY; 2026 Task Manager</small>
 </footer>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
